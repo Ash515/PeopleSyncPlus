@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HRMS - Professionals</title>
+    <title>PeopleSyncPlus - HRMS</title>
     <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet">
-    <link rel="icon" href="/static/Assets/hr-icon.png">
+    <link rel="icon" href="{{ url_for('static', filename='Assets/PSP_Icon.png') }}">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>HRMS - Professionals</h1>
+            <h1>PeopleSyncPlus</h1>
+            <div class="signin">
+                <a href="{{ url_for('signin') }}" class="btn">Sign In</a>
+            </div>
         </div>
     </header>
     <main>
-        <section class="about">
-            <p>A Human Resource Management software designed to provide the right solutions for employees in your organization.</p>
+        <section class="hero">
+            <img src="{{ url_for('static', filename='Assets/PSP_Icon.png') }}" alt="PeopleSyncPlus Logo">
+            <h2>Streamline Your HR Operations</h2>
+            <p>Empower your organization with seamless HR management solutions, from payroll to employee engagement.</p>
         </section>
-        <nav class="menu">
-            <ul>
-                <li><a href="#search">Search Team Members</a></li>
-                <li><a href="#profile">View Organization Profile</a></li>
-                <li><a href="#cases">Register Your Cases</a></li>
-            </ul>
-        </nav>
-        <div class="signin">
-            <a href="{{ url_for('signin') }}" class="btn">Sign In</a>
-        </div>
     </main>
+    <footer>
+        <p>&copy; 2025 PeopleSyncPlus. All rights reserved.</p>
+    </footer>
 </body>
 </html>

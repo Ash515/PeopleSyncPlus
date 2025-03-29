@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeopleSyncPlus - Sign In</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/AuthStyle/Signin.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='Assets/PSP_Icon.png') }}">
+</head>
+<body>
+    <div class="signin-container">
+        <div class="signin-box">
+            <img src="{{ url_for('static', filename='Assets/PSP_Icon.png') }}" alt="PeopleSyncPlus Logo" class="logo">
+            <h2>Sign In</h2>
+            <form action="/empsignin" method="post">
+                <label for="id-field">Employee ID</label>
+                <input type="text" name="empid" id="id-field" placeholder="Enter your Employee ID" required>
+                
+                <label for="password-field">Password</label>
+                <input type="password" name="emppass" id="password-field" placeholder="Enter your Password" required>
+                
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+            <div class="message">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="error">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

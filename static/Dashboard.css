@@ -1,6 +1,14 @@
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background-color: #eef2f7;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  width: 100vw;
 }
+
 
 .nav-bar-a {
   background-color: rgb(29, 8, 29);
@@ -12,9 +20,6 @@ body {
   padding-bottom: 10px;
  
 }
-
-
-
 #app-name {
   padding-left: 30px;
   font-size: 18px;
@@ -35,7 +40,7 @@ body {
 #logout {
   margin-left: 70px;
   padding-left: 15px;
-  background-color: rgb(40, 40, 134);
+  background-color: #e74c3c;
   width: 150px;
   height: 30px;
   /* text-align: center; */
@@ -53,7 +58,6 @@ a {
 
 .nav-bar-b {
   height: 55px;
-  width: 1520px;
   background-color: white;
   display: inline-flex;
   box-shadow: 2px 2px rgb(236, 212, 212);
@@ -65,12 +69,28 @@ a {
   margin-left: 20px;
   background-color: rgba(59, 15, 15, 0.733);
   border-radius: 50px;
-  color:black;
+  color:white;
   width:50px;
   font-size: 20px;
   border-style: none;
   text-align: center;
   padding-top: 5px;
+}
+#available{
+  height:30px;
+  margin-top:15px;
+  margin-left: 20px;
+  background-color: green;
+  border-radius: 50px;
+  color:white;
+  width:50px;
+  font-size: 20px;
+  border-style: none;
+  text-align: center;
+  padding-top: 5px;
+}
+#available-mark{
+  color:green;
 }
 #busy-mark{
   color:red;
@@ -157,7 +177,7 @@ a {
 #refresh-button {
   width: 50px;
   height: 30px;
-  margin-left:650px;
+  margin-left:615px;
   cursor: pointer;
   width: 60px;
   text-align: center;
@@ -211,23 +231,6 @@ a {
   display: flex;
 }
 
-.new-hires {
-  width: 500px;
-  height: 350px;
-  
-  margin-left: 10px;
-  margin-top: 20px;
-  background-color: white;
-  font-size: 14px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  border-radius: 5px;
-  box-shadow: 5px 10px rgb(236, 212, 212);
-  overflow: auto;
-}
-
-#new-hires{
-  padding-left: 20px;
-}
 
 
 .attendance {
@@ -237,7 +240,7 @@ a {
   margin-top: 20px;
   background-color: white;
   font-size: 14px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   border-radius: 5px;
   box-shadow: 5px 10px rgb(236, 212, 212);
 }
@@ -250,7 +253,7 @@ a {
   background-color: white;
   overflow: auto;
   font-size: 14px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   border-radius: 5px;
   box-shadow: 5px 10px rgb(236, 212, 212);
 }
@@ -267,7 +270,7 @@ a {
   background-color: white;
   overflow: auto;
   font-size: 14px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   border-radius: 5px;
   box-shadow: 5px 10px rgb(236, 212, 212);
 }
@@ -279,7 +282,7 @@ a {
   background-color: white;
   overflow: auto;
   font-size: 14px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   border-radius: 5px;
   box-shadow: 5px 10px rgb(236, 212, 212);
 }
@@ -306,21 +309,6 @@ a {
   padding-right: 10px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .mygoals{
   width: 500px;
   height: 400px;
@@ -329,7 +317,7 @@ a {
   background-color: white;
   overflow:auto;
   font-size: 14px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   border-radius: 5px;
   box-shadow: 5px 10px rgb(236, 212, 212);
 }
@@ -342,13 +330,13 @@ a {
   padding-top: 10px;
   border-radius: 5px;
  
-   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+   font-family: 'Poppins', sans-serif;
 }
 
 
 #goal-list a{
   color:black;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+  font-family:'Poppins', sans-serif;
 }
 
 
@@ -367,36 +355,98 @@ a {
 #titles {
   height: 30px;
   padding-left: 30px;
-
-  /* position: fixed;
-background-color: white;
-width:430px; */
 }
 
 ul li {
   list-style-type: none;
 }
 
+/* People Tile - Start*/
+#search-bar {
+  width: 100%;
+  max-width: 350px;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  margin-left: 50px;
+}
 
+#search-bar:focus {
+  border-color: #1abc9c;
+  box-shadow: 0 0 8px rgba(26, 188, 156, 0.5);
+}
 
-#people-list {
-  /* padding: 0px 10px 0px 10px; */
-  height: 50px;
-  padding-left: 5px;
-  width: 400px;
+.new-hires {
+  width: 500px;
+  height: 350px;
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
   border-radius: 5px;
-  background-color: rgba(255, 192, 203, 0.559);
-}
-.list {
-  display: inline-flex;
-  cursor: pointer;
+  box-shadow: 5px 10px rgb(236, 212, 212);
+  overflow: auto;
 }
 
-#newhires-doj {
-  padding-left: 250px;
-  padding-right: 20px;
+#new-hires{
+  padding-left: 20px;
 }
 
+.new-hire-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.new-hire-list li {
+  background: #ffffff;
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.new-hire-list li:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+.newhires-dept {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1abc9c;
+  background: rgba(26, 188, 156, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.newhires-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.newhires-doj {
+  font-size: 14px;
+  color: #555;
+  margin-top: 4px;
+}
+
+
+/* People Tile -End */
 #holiday {
   background-color: white;
   height: 50px;
@@ -517,7 +567,7 @@ div[role="absent-progressbar"] {
       white 0
     ),
     conic-gradient(var(--fg) calc(var(--pgPercentage) * 20%), var(--bg) 0);
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: calc(var(--size) / 5);
   color: var(--fg);
 }
@@ -555,7 +605,7 @@ div[role="compensatoryoff-progressbar"] {
       white 0
     ),
     conic-gradient(var(--fg) calc(var(--pgPercentage) * 50%), var(--bg) 0);
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: calc(var(--size) / 5);
   color: var(--fg);
 }
@@ -590,7 +640,7 @@ div[role="onduty-progressbar"] {
       white 0
     ),
     conic-gradient(var(--fg) calc(var(--pgPercentage) * 100%), var(--bg) 0);
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: calc(var(--size) / 5);
   color: var(--fg);
 }
@@ -625,7 +675,7 @@ div[role="opt-holiday-progressbar"] {
       white 0
     ),
     conic-gradient(var(--fg) calc(var(--pgPercentage) * 25%), var(--bg) 0);
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: calc(var(--size) / 5);
   color: var(--fg);
 }
@@ -660,7 +710,7 @@ div[role="team-trip-progressbar"] {
       white 0
     ),
     conic-gradient(var(--fg) calc(var(--pgPercentage) * 100%), var(--bg) 0);
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: calc(var(--size) / 5);
   color: var(--fg);
 }
@@ -693,3 +743,10 @@ position: -webkit-sticky;
   color:white;
   /* padding-top: 2px; */
 }
+
+
+
+
+
+/* ashwin */
+

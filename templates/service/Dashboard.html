@@ -2,22 +2,22 @@
 <html>
 
 <head>
-  <title>Professionals</title>
-  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='Home.css')}}" />
-  <script src="/static/Home.js"></script>
+  <title>PeopleSyncPlus</title>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='Dashboard.css')}}" />
+  <script src="/static/Dashboard.js"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="icon" href="/static/Assets/hr-icon.png">
-
-
+  <link rel="icon" href="/static/Assets/PSP_Icon.png">
 </head>
 </head>
 
 <body onload="display_ct()">
   <div id="preloader"></div>
 
+
+  <!-- App title bar -->
   <div class="nav-bar-a">
-    <p id="app-name"><b>Professionals</b></p>
+    <p id="app-name"><b>PeopleSyncPlus</b></p>
     <p id="services">Services</p>
     <p id="self-service"><a href="/employeeinfo/{{id}}">Self-service</a></p>
     <p id="org"><a href="/teamdirectory">Organization</a></p>
@@ -26,6 +26,7 @@
           id="signout-icon"></iconify-icon> &nbsp;&nbsp;Sign Out</a></p>
   </div>
 
+  <!-- Navigation Bar-B -->
   <div class="nav-bar-b">
     {%if checkedin%}
     <p id="checkout-tbar"> &nbsp;<iconify-icon id="alarm" icon="mdi:alarm-clock"></iconify-icon> &nbsp;<a
@@ -35,95 +36,53 @@
         href="/checkin">Check-in</a> </p>
     {%endif%}
 
-
-
-    <i class="fa fa-magnifying"></i>
-
-    <button id="busy" title="Busy"><a href="/busystatus"><iconify-icon
-          icon="ic:round-center-focus-strong"></iconify-icon></iconify-icon></a></button>
-    <button id="away" title="Away"><a href="/awaystatus"><iconify-icon
-          icon="line-md:arrow-small-left"></iconify-icon></a></button>
-    <button id="dnd" title="Do not disturb (DnD)"><a href="/dndstatus"><iconify-icon
-          icon="mdi:bell-off-outline"></iconify-icon></a></button>
-    <div class="status-msg">
-      {%for statusname in name%}
-
-
-      {%if statusname[11]=="Busy":%}
-      <p id="busy-mark">{{statusname[11]}}</p>
-
-      {%elif statusname[11]=="Away": %}
-      <p id="away-mark">{{statusname[11]}}</p>
-
-      {%else:%}
-      <p id="dnd-mark">{{statusname[11]}}</p>
-      {%endif%}
-
-      {%endfor%}
-    </div>
-    <p id="refresh-button" onClick="window.location.reload(true);popUp();"><i class="fa fa-rotate-right"></i></p>
+  <button id="available" title="Available" onclick="updateStatus('Available', 'green')">
+      <iconify-icon icon="akar-icons:check"></iconify-icon>
+  </button>
+  
+  <button id="busy" title="Busy" onclick="updateStatus('Busy', '#e74c3c')">
+      <iconify-icon icon="ic:round-center-focus-strong"></iconify-icon>
+  </button>
+  <button id="away" title="Away" onclick="updateStatus('Away', '#f1c40f')">
+      <iconify-icon icon="line-md:arrow-small-left"></iconify-icon>
+  </button>
+  <button id="dnd" title="Do Not Disturb" onclick="updateStatus('DnD', '#8e44ad')">
+      <iconify-icon icon="mdi:bell-off-outline"></iconify-icon>
+  </button>
+  
+  <div class="status-msg">
+      <p id="status-text">Available</p>
+  </div>
+  <p id="refresh-button" onClick="window.location.reload(true);popUp();"><i class="fa fa-rotate-right"></i></p>
 
     <p id="leave-apply"><a href="/leaveform">Apply Leave</a></p>
     <p id="logtime"><a href="/attendancelog">Log Time</a></p>
 
   </div>
 
+  <!-- Navigation Bar-C -->
   <div class="main">
     <div class="flex-a">
       <div class="new-hires">
         <div class="titles">
-          <h3 id="new-hires">New Hires</h3>
+            <h3 id="new-hires">People</h3>
+            <input type="text" id="search-bar" placeholder="Search people..." onkeyup="filterNames()">
         </div>
         <br />
         <div class="new-hire-list">
-          {%for people in newhires%}
-          <ul>
-            <li id="people-list">
-              <div class="list">
-                <p id="newhires-name"><b>{{people[1]}}</b></p>
-                <p id="newhires-doj">{{people[3]}}</p>
-              </div>
-            </li>
-            <br />
-            <li id="people-list">
-              <div class="list">
-                <p id="newhires-name"><b>{{people[1]}}</b></p>
-                <p id="newhires-doj">{{people[3]}}</p>
-              </div>
-            </li>
-            <br />
-            <li id="people-list">
-              <div class="list">
-                <p id="newhires-name"><b>{{people[1]}}</b></p>
-                <p id="newhires-doj">{{people[3]}}</p>
-              </div>
-            </li>
-            <br />
-            <li id="people-list">
-              <div class="list">
-                <p id="newhires-name"><b>{{people[1]}}</b></p>
-                <p id="newhires-doj">{{people[3]}}</p>
-              </div>
-            </li>
-            <br />
-            <li id="people-list">
-              <div class="list">
-                <p id="newhires-name"><b>{{people[1]}}</b></p>
-                <p id="newhires-doj">{{people[3]}}</p>
-              </div>
-            </li>
-            <br />
-            <li id="people-list">
-              <div class="list">
-                <p id="newhires-name"><b>{{people[1]}}</b></p>
-                <p id="newhires-doj">{{people[3]}}</p>
-              </div>
-            </li>
-            <br />
-          </ul>
-          {%endfor%}
+            <ul id="people-list">
+                {% for people in newhires %}
+                <li class="person">
+                    <div class="list">
+                        <p class="newhires-name">{{ people[2] }} - {{ people[0] }}</p>
+                        <p class="newhires-doj">DOJ - {{ people[9] }}</p>
+                        <p class="newhires-dept">{{ people[6] }}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-      </div>
+    </div>
 
       <div class="attendance">
         <div id="titles">
@@ -244,26 +203,7 @@
         </div>
   
      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <div class="mygoals">
+<div class="mygoals">
         <div id="titles">
           <h3 id="mygoals">My Tasks<a href="/goals"><i class="fa fa-plus" id="plus-icon"></i></a></h3>
         </div>

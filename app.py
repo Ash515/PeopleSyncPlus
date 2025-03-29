@@ -42,7 +42,7 @@ def invalid_route(e):
 
 @app.route('/signin')
 def signin():
-    return render_template('/service/Signin.html')
+    return render_template('/Auth/Signin.html')
 
 def login_required(f):
     @wraps(f)
@@ -78,8 +78,8 @@ def empsigin():
             session['empid'] = empvalidation[0]  #'empid'
             session['emppassword'] = empvalidation[1]  #'emppass'
             
-            # Redirect to home page
-           # return render_template('/service/Home.html')
+            # Redirect to Dashboard page
+           # return render_template('/service/Dashboard.html')
             return redirect(url_for('main'))
         else:
             # Account doesnt exist or username/password incorrect
@@ -93,7 +93,7 @@ def empsigin():
 
 @app.route('/backtomain')
 def backtomain():
-    return render_template('/service/Home.html')
+    return render_template('/service/Dashboard.html')
 
 
 # instatuscheck=checkedin
@@ -112,7 +112,7 @@ def main():
       ename=cur2.fetchall()
       con.commit()
       cur = con.cursor()
-      cur.execute('SELECT * FROM newhires')
+      cur.execute('SELECT * FROM empinfo')
       newhires=cur.fetchall()
       cur.execute('select * from holidays')
       holidays=cur.fetchall()
@@ -174,36 +174,58 @@ def main():
       quicklinks=cur.fetchall()
 
 
-      return render_template('/service/Home.html',n=n,checkedin=checkedin,name=ename,id=session['empid'],newhires=newhires,holidays=holidays,goals=goals,quicklinks=quicklinks)
+      return render_template('/service/Dashboard.html',n=n,checkedin=checkedin,name=ename,id=session['empid'],newhires=newhires,holidays=holidays,goals=goals,quicklinks=quicklinks)
 
 
-@app.route("/busystatus")
-def busystatusupdate():
-    session_id=session['empid']
-    work_status="Busy"
-    cur = con.cursor()
-    cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
-    con.commit()
-    return redirect(url_for('main'))
+# @app.route("/availablestatus")
+# def busystatusupdate():
+#     session_id=session['empid']
+#     work_status="Busy"
+#     cur = con.cursor()
+#     cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
+#     con.commit()
+#     return redirect(url_for('main'))
+# @app.route("/busystatus")
+# def busystatusupdate():
+#     session_id=session['empid']
+#     work_status="Busy"
+#     cur = con.cursor()
+#     cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
+#     con.commit()
+#     return redirect(url_for('main'))
 
-@app.route("/awaystatus")
-def awaystatusupdate():
-    session_id=session['empid']
-    work_status="Away"
-    cur = con.cursor()
-    cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
-    con.commit()
-    return redirect(url_for('main'))
+# @app.route("/awaystatus")
+# def awaystatusupdate():
+#     session_id=session['empid']
+#     work_status="Away"
+#     cur = con.cursor()
+#     cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
+#     con.commit()
+#     return redirect(url_for('main'))
 
 
-@app.route("/dndstatus")
-def dndstatusupdate():
-    session_id=session['empid']
-    work_status="DnD"
-    cur = con.cursor()
-    cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
-    con.commit()
-    return redirect(url_for('main'))
+# @app.route("/dndstatus")
+# def dndstatusupdate():
+#     session_id=session['empid']
+#     work_status="DnD"
+#     cur = con.cursor()
+#     cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
+#     con.commit()
+#     return redirect(url_for('main'))
+
+user_status = {"status": "Available", "color": "green"}
+
+@app.route("/update_status", methods=["POST"])
+def update_status():
+    data = request.json
+    user_status["status"] = data.get("status")
+    user_status["color"] = data.get("color")
+    return jsonify({"message": "Status updated successfully"}), 200
+
+@app.route("/get_status", methods=["GET"])
+def get_status():
+    return jsonify(user_status), 200
+
 
 
 @app.route('/viewprofile')
