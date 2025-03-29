@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='Goaldetails.css')}}" />
+    <link rel="icon" href="/static/Assets/hr-icon.png" />
+    <script src="https://code.iconify.design/iconify-icon/1.0.5/iconify-icon.min.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        {%for empdata in empdata_goal%}
+        
+        {%for goal in goals%}
+        {%if goal[0]==emp_id: %}
+        <h3 id="taskdetail-title"><iconify-icon icon="material-symbols:task-alt" id="taskname-icon"></iconify-icon>&nbsp;&nbsp;{{goal[2]}}</h3>
+        
+
+        <p id="back-icon">
+            <a href="/main"><iconify-icon icon="radix-icons:cross-2"></iconify-icon></a>
+        </p>
+    </div>
+    <!-- <p id="initiatedby">Initiated by <b>TS-69 Ashiwn Kumar R </b></p> -->
+    <div class="flexbox-b">
+       
+        <p id="task-owner"><iconify-icon icon="mdi:account"></iconify-icon><span id="owner">Task Owner</span><br>{{empdata[2]}}
+
+        <span class="vl"></span>
+
+        <p id="due-date"> <iconify-icon icon="material-symbols:clock-loader-20" id="due-date-icon"></iconify-icon>
+        <p id="duedate-header">Due Date</p>
+        </p><br>
+        <p id="date">{{goal[5]}}</p>
+
+        <span class="vl-b"></span>
+
+        <p id="status"><iconify-icon icon="pajamas:status" id="status-icon"></iconify-icon>
+        <p id="status-header">Status</p>
+        </p>
+        <p id="status">{{goal[7]}}</p>
+        </p>
+       
+
+    </div>
+
+
+    <div class="details">
+      <div class="taskdetails-list"><p id="task-params">Task Name</p> <p id="data">{{goal[2]}}</p></div>  
+        <hr size="0px" >
+        <div class="taskdetails-list"><p id="task-params">Description</p> <p id="description-data">{{goal[3]}}</p></div>  
+        <hr>
+        <div class="taskdetails-list"><p id="task-params">Start Date</p> <p id="data">{{goal[4]}}</p></div>  
+        <hr>
+        <div class="taskdetails-list"><p id="task-params">End Date</p> <p id="data">{{goal[5]}}</p></div>  
+        <hr>
+        <div class="taskdetails-list"><p id="task-params">Priority</p> <p id="priority-data">{{goal[6]}}</p></div>  
+        <hr>
+        <div class="taskdetails-list"><p id="task-params">Status</p> <p id="status-data">{{goal[7]}}</p></div>  
+        <br>
+        <div class="goal-status-options">
+        <div class="close-completion-mark"><a href="/closetaskstatus/{{goal[1]}}">Close Task</a></div>
+        <div class="open-completion-mark"><a href="/opentaskstatus/{{goal[1]}}">Open Task</a></div>
+        <div class="deletion-completion-mark"><a href="/taskdeletion/{{goal[1]}}">Delete Task</a></div>
+         </div> 
+         
+         
+
+
+            {%else%}
+              <p>You are not in correct route :)</p>
+            
+              {%endif%}
+        {%endfor%}
+       
+    {%endfor%}
+    
+    </div>
+   
+</body>
+
+</html>

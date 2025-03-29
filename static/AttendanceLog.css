@@ -1,0 +1,103 @@
+body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+background-color: rgba(0, 255, 255, 0.598);
+}
+
+.title-bar p{
+font-size: 16px;
+color:indigo
+}
+.layout-bar{
+    width:1480px;
+    height:650px;
+    background-color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+  
+.details-bar{
+    margin-left: 50px;
+    padding-top: 10px;
+    display: inline-flex;
+}
+
+#empid{
+    margin-left: 80px;
+}
+
+form{
+    margin-left: 300px;
+    padding-top: 15px;
+}
+select{
+    width:200px;
+    height:20px;
+}
+
+input{
+    width:200px;
+    height:20px;
+}
+#submit-button{
+    width:100px;
+    height:25px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 255, 0.568);
+    color: white;
+    border-style: none;
+}
+#datefield{
+    margin-left: 100px;
+}
+
+
+
+#dateinfo{
+    margin-left: 350px;
+    padding-top: 10px;
+}
+
+.table-field{
+    Overflow-x:auto;
+    height:500px;
+    
+    
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width:50%;
+    margin-left: 350px;
+    
+    margin-top: 30px;
+    
+    
+  
+    
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    width:500px;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  #back-button{
+    font-size: 20px;
+  }
+
+li{
+    list-style-type: none;
+  }
+
+#emptyIcon{
+    margin-left: 600px;
+    width: 400px;
+    
+    
+}

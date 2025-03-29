@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% for name in team_p%}
+    <title>{{name[1]}}</title>
+    {%endfor%}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="icon" href="/static/Assets/hr-icon.png" />
+    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='EmployeeInfo.css')}}">
+    <script src="{{url_for('static', filename='EmployeeInfo.js')}}"></script> -->
+    <link rel="stylesheet" type="text/css" href="/static/EmployeeInfo.css" />
+     <script src="/static/EmployeeInfo.js"></script>
+  </head>
+
+  <body>
+    <div id="site-1">
+      {% for i in team_p%}
+      <div class="main">
+        <b><p id="name">{{i[1]}}</p></b> 
+           <!-- <p>Empid</p> <p>Email</p>  <p>Position</p> <p>Team</p> -->
+      </div>
+     
+      <div class="edit-row">
+        {% if i[0]==s_id: %}
+         <p id="edit-profile"><a href="/personaldetail-update/{{s_id}}" ><b>Edit</b> </a></p>
+         {%endif%}
+         <p id="back-page"><a href="/main"><b>Back</b></a></p>
+      
+        
+      </div>
+     
+      <hr>
+
+      <div class="details">
+        <p><i class="fa fa-id-card"></i>&nbsp;&nbsp;<b>Employee ID :</b> &nbsp;&nbsp; {{i[0]}}</p>
+        <p><i class="fa fa-user-plus"></i>&nbsp;&nbsp;<b>Designation :</b>&nbsp;&nbsp;{{i[2]}}</p>
+        <p><i class="fa fa-sitemap"></i>&nbsp;&nbsp;<b>Team :</b>&nbsp;&nbsp;&nbsp;{{i[6]}}</p>
+        <p><i class="fa fa-desktop"></i>&nbsp;&nbsp;<b>Seating:</b>&nbsp;&nbsp;&nbsp;{{i[3]}}</p>
+        <p><i class="fa fa-phone"></i>&nbsp;&nbsp;<b>Extention:</b>&nbsp;&nbsp;&nbsp;{{i[4]}}</p>
+      </div>
+      <div class="reporting-to">
+        {%for m in manager%}
+        {% if m[0]==i[10]: %}
+        <p><b>Reporting To:</b>&nbsp;&nbsp;&nbsp;<a href="/employeeinfo/{{m[0]}}">{{m[1]}}</a></p>
+        {%endif%}
+        {%endfor%}
+      </div>
+
+      <div class="flex-a">
+        <div class="skillset-field">
+          <div class="skillset-field-title">
+            <div class="skillset-title">
+              <p id="skillset">
+                <i class="fa fa-tag"></i>&nbsp;&nbsp;<b>Skill Set</b>
+              </p>
+            </div>
+            {% if i[0]==s_id: %}
+            <div class="plus-icon">
+              <a href="/employeeskills/{{i[0]}}"
+                ><button id="plus-button"><i class="fa fa-plus"></i></button
+              ></a>
+            </div>
+            {%endif%}
+          </div>
+          <div class="skill-area">
+            
+            {% for i in empSkills%}
+            <ul id="empskills-ul">
+              <li>
+                <button id="skill-button">
+                  <a href="/skilldetails/{{i[1]}}">{{i[2]}}</a>
+                </button>
+              </li>
+            </ul>
+            
+
+            {%endfor%}
+           
+          </div>
+        </div>
+       
+        <div class="personal-field">
+          <div class="personal-title">
+            <p id="skillset">
+              <i class="fa fa-user"></i>&nbsp;&nbsp;<b>Personal Details</b>
+            </p>
+            {% if i[0]==s_id: %}
+            <div class="plus-icon1">
+              <a href="/personaldetail-update/{{s_id}}"
+                ><button id="plus-button"><i class="fa fa-plus"></i></button
+              ></a>
+            </div>
+            {%endif%}  
+          </div>
+          <div class="basic-details-params">
+            <p>Gender</p>
+            <hr />
+            <p>Date of Birth</p>
+            <hr />
+            <p>PAN Card No</p>
+            <hr />
+            <p>Personal Mail ID</p>
+            <hr />
+            <p>Father Name</p>
+            <hr />
+            <p>Address</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    {% if i[0]==s_id: %}
+    <div class="flex-b">
+      <div class="basic-field">
+        <div class="basic-field-title">
+          <p id="skillset">
+            <i class="fa fa-list"></i>&nbsp;&nbsp;<b>Basic Details</b>
+          </p>
+        </div>
+        <div class="basic-details-params">
+          <p>Employee ID</p>
+          <hr />
+          <p>Name</p>
+          <hr />
+          <p>Mobile Number</p>
+          <hr />
+          <p>Extension Number</p>
+          <hr />
+          <p>Added By</p>
+          <hr />
+          <p>Added Time</p>
+          <hr />
+          <p>Email ID</p>
+        </div>
+      </div>
+
+      <div class="work-field">
+        <div class="work-title">
+          <p id="skillset">
+            <i class="fa fa-briefcase"></i>&nbsp;&nbsp;<b>Work</b>
+          </p>
+        </div>
+        <div class="basic-details-params">
+          <p>Date of joining</p>
+          <hr />
+          <p>Department</p>
+          <hr />
+          <p>Reporting To</p>
+          <hr />
+          <p>Office Location</p>
+          <hr />
+          <p>Seating Location</p>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+
+    {% if i[0]==s_id: %}
+
+    <div class="flex-c">
+      <div class="education-field">
+        <div class="education-field-title">
+          <p id="skillset">
+            <i class="fa fa-graduation-cap"></i>&nbsp;&nbsp;<b>Education</b>
+          </p>
+        </div>
+        <div class="education-details-params">
+          <p id="degree">Degree/Diploma</p><hr />
+         
+          <p id="subject">Subject/Branch</p><hr />
+          
+          <p id="yop">Year of Graduation</p>
+          
+          
+        </div>
+      </div>
+    </div>
+    {%endif%}
+    {%endfor%}
+  </body>
+</html>

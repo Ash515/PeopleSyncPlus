@@ -1,0 +1,169 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+}
+/* #taskdetail-title{
+    
+    text-align: center;
+   
+
+} */
+.main{
+    display: inline-flex;
+}
+
+#taskname-icon{
+    font-size: 25px;
+    color:rgba(78, 14, 14, 0.742);
+}
+
+#taskdetail-title{
+    margin-left: 150px;
+}
+#back-icon{
+    margin-left: 1000px;
+    margin-top: 20px;
+    font-size: 30px;
+}
+.details{
+    margin-left: 130px;
+    margin-top: 70px;
+
+}
+#initiatedby{
+    margin-left: 130px;
+    margin-top: 5px;
+    font-size: 16px;
+}
+.flexbox-b{
+    height:60px;
+    display: inline-flex;
+    background-color: aqua;
+    width: 1450px;
+    margin-left: 40px;
+    
+}
+#task-owner{
+    margin-left: 130px;
+}
+#owner{
+    color: grey;
+}
+
+.vl{
+    border-left: 3px solid rgba(128, 128, 128, 0.233);
+    height: 10px;
+    margin-left: 250px;
+    padding-top: 35px;
+/* margin-bottom: 30px; */
+    
+  }
+
+  #due-date{
+    margin-left: 30px;
+  }
+
+  #due-date-icon{
+    font-size: 30px;
+    color:rgba(128, 128, 128, 0.742);
+  }
+  #duedate-header{
+    font-size: 18px;
+    margin-left: 5px;
+    color:grey;
+  }
+  #date{
+    margin-left: 25px;
+    margin-top: 20px;
+  }
+
+  .vl-b{
+    border-left: 3px solid rgba(128, 128, 128, 0.233);
+    height: 28px;
+    margin-left: 100px;
+    padding-top: 30px;
+/* margin-bottom: 30px; */
+    
+  }
+
+  #status-icon{
+    font-size: 25px;
+    color:rgba(128, 128, 128, 0.742);
+    margin-left: 20px;
+    /* padding-bottom: 10px; */
+
+  }
+  #status-header{
+    font-size: 18px;
+    margin-left: 5px;
+    color:grey;
+  }
+
+  #status{
+    margin-left: 25px;
+    margin-top: 20px;
+  }
+
+hr{
+  color:rgba(255, 192, 203, 0.135);
+  size:"0px" ;
+ margin-right: 50px;
+}
+
+.taskdetails-list{
+  display: inline-flex;
+}
+#data{
+  margin-left: 160px;
+}
+#status-data{
+  margin-left:180px ;
+}
+#priority-data{
+  margin-left:170px ;
+}
+#description-data{
+  margin-left:150px ;
+}
+#task-params{
+  color:grey;
+}
+.goal-status-options{
+  display: inline-flex;
+}
+.close-completion-mark{
+  background-color:blue;
+  color:white;
+  width:100px;
+  text-align: center;
+  border-radius: 5px;
+  height:30px;
+}
+
+.open-completion-mark{
+  background-color:green;
+  color:white;
+  margin-left: 10px;
+  width:100px;
+  text-align: center;
+  border-radius: 5px;
+  height:30px;
+}
+
+.deletion-completion-mark{
+  background-color:red;
+  color:white;
+  width:100px;
+  margin-left: 10px;
+  text-align: center;
+  border-radius: 5px;
+  height:30px;
+}
+.goal-status-options a{
+  color:white;
+  text-decoration: none;
+}
+
+
+
+

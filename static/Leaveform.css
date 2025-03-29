@@ -1,0 +1,147 @@
+body {
+  background-color: rgba(0, 255, 255, 0.541);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#title-id {
+  display: inline-flex;
+
+  text-align: center;
+
+  background-color: blue;
+  color: white;
+  font-size: 18px;
+  width: 500px;
+  height: 50px;
+  border-radius: 5px;
+
+  height: 40px;
+  padding-top: 10px;
+  border-radius: 5px;
+  color: white;
+  padding-left: 30px;
+  font-weight: bold;
+}
+#title-span {
+  margin-left: 50px;
+}
+
+#calender-icon {
+  margin-left: 130px;
+  font-size: 24px;
+}
+
+.main {
+  margin-left: 450px;
+  display: flex;
+  background-color: white;
+  border-radius: 5px;
+  width: 600px;
+  height: 630px;
+  padding-left: 50px;
+  margin-top: 30px;
+  color: grey;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+#back {
+  font-size: 16px;
+  padding-top: 5px;
+}
+
+hr {
+  color: grey;
+}
+
+input {
+  margin-left: 50px;
+  margin-top: 20px;
+  width: 400px;
+  height: 30px;
+  border: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#submit-field {
+  width: 200px;
+  margin-top: 40px;
+  background-color: blue;
+  color: white;
+  border: none;
+  margin-left: 170px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#cancel {
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  width: 200px;
+  margin-top: 40px;
+  height: 30px;
+  background-color: rgba(255, 0, 0, 0.735);
+}
+
+#ownername {
+  margin-left: 50px;
+}
+
+#teamname {
+    margin-left: 80px;
+  }
+  
+
+#description {
+  margin-left: 45px;
+}
+
+#fromdate {
+  margin-left: 80px;
+  border: none;
+}
+
+#todate {
+  margin-left: 100px;
+  border: none;
+}
+
+#leavetype {
+  margin-left: 80px;
+  margin-top: 10px;
+  width: 405px;
+  height: 30px;
+  border: none;
+}
+
+.notification {
+  text-align: center;
+  font-size: 16px;
+} /*# sourceMappingURL=Goals.css.map */
+
+#key-icon{
+    margin-left: 5px;
+    padding-top: 5px;
+}
+
+
+
+#leaveform-back {
+    width: 200px;
+    height:30px;
+    margin-top: 40px;
+    background-color: rgba(123, 31, 31, 0.562);
+    color: white;
+    border: none;
+    margin-left: 170px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    
+  }

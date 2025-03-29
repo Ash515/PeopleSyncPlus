@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static',filename='Leaveform.css')}}"
+    />
+    <link rel="icon" href="/static/Assets/hr-icon.png" />
+    <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+    <title>Leave Form</title>
+  </head>
+  <body>
+    <div class="title-block"></div>
+
+    <div class="notification">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %} {{ message }} {% endfor %} {% endif %} {% endwith
+      %}
+    </div>
+    <div class="main">
+      <form action="/leaveform" method="post">
+        <p id="title-id">
+          <iconify-icon
+            id="calender-icon"
+            icon="line-md:calendar"
+          ></iconify-icon
+          >&nbsp;&nbsp;<span id="title-span">Apply Leave</span>
+        </p>
+
+        {%for name in empdetails%} Applicant name
+        <span id="ownername">{{name[2]}}</span>
+        <iconify-icon icon="ic:baseline-key" id="key-icon"></iconify-icon>
+        <br /><br />
+
+        Team name <span id="teamname">{{name[6]}}</span> <br />
+        <hr />
+        {%endfor%} Leave type
+        <select name="leavetype" id="leavetype">
+          <option>Optional Holiday</option>
+          <option>Leave trainee</option>
+          <option>Compensatory off</option>
+        </select>
+        <br />
+        <hr />
+        From Date
+        <input type="date" id="fromdate" name="fromdate" required /><br />
+        <hr />
+        To Date <input type="date" id="todate" name="todate" required /> <br />
+        <hr />
+
+        Description
+        <input type="text" required id="description" name="description" /><br />
+        <hr />
+        <input type="submit" id="submit-field" />
+
+        <p id="leaveform-back"><a href="/main">Cancel</a></p>
+      </form>
+    </div>
+  </body>
+</html>

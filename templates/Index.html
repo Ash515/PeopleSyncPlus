@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRMS - Professionals</title>
+    <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet">
+    <link rel="icon" href="/static/Assets/hr-icon.png">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>HRMS - Professionals</h1>
+        </div>
+    </header>
+    <main>
+        <section class="about">
+            <p>A Human Resource Management software designed to provide the right solutions for employees in your organization.</p>
+        </section>
+        <nav class="menu">
+            <ul>
+                <li><a href="#search">Search Team Members</a></li>
+                <li><a href="#profile">View Organization Profile</a></li>
+                <li><a href="#cases">Register Your Cases</a></li>
+            </ul>
+        </nav>
+        <div class="signin">
+            <a href="{{ url_for('signin') }}" class="btn">Sign In</a>
+        </div>
+    </main>
+</body>
+</html>

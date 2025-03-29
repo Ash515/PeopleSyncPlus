@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                console.log('Geolocation is not supported by this browser.');
+            }
+
+            function success(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                // Make an Ajax request to the Flask endpoint with latitude and longitude
+                $.ajax({
+                    type: 'GET',
+                    url: '/weather',
+                    data: {
+                        latitude: latitude,
+                        longitude: longitude
+                    },
+                    success: function(response) {
+                        // Update the weather container with the received weather data
+                        $('#weather-container').html(
+                            '<h2>' + response.location.name + '</h2>' +
+                            '<p>Temperature: ' + response.current.temp_c + '°C</p>' +
+                            '<p>Weather: ' + response.current.condition.text + '</p>'
+                        );
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            function error() {
+                console.log('Unable to retrieve your location.');
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Weather App</h1>
+
+    <div id="weather-container">
+        <p>Fetching weather information...</p>
+    </div>
+</body>
+</html>

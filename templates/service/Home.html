@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Professionals</title>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='Home.css')}}" />
+  <script src="/static/Home.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="icon" href="/static/Assets/hr-icon.png">
+
+
+</head>
+</head>
+
+<body onload="display_ct()">
+  <div id="preloader"></div>
+
+  <div class="nav-bar-a">
+    <p id="app-name"><b>Professionals</b></p>
+    <p id="services">Services</p>
+    <p id="self-service"><a href="/employeeinfo/{{id}}">Self-service</a></p>
+    <p id="org"><a href="/teamdirectory">Organization</a></p>
+    <p id="approvals"><a href="#">Approvals</a></p>
+    <p id="logout"><a href="{{url_for('userlogout')}}"><iconify-icon icon="line-md:arrow-close-left"
+          id="signout-icon"></iconify-icon> &nbsp;&nbsp;Sign Out</a></p>
+  </div>
+
+  <div class="nav-bar-b">
+    {%if checkedin%}
+    <p id="checkout-tbar"> &nbsp;<iconify-icon id="alarm" icon="mdi:alarm-clock"></iconify-icon> &nbsp;<a
+        href="/checkout">Check-Out</a> </p>
+    {%else%}
+    <p id="checkin-tbar"> <iconify-icon id="alarm" icon="mdi:alarm-clock"></iconify-icon> &nbsp;<a
+        href="/checkin">Check-in</a> </p>
+    {%endif%}
+
+
+
+    <i class="fa fa-magnifying"></i>
+
+    <button id="busy" title="Busy"><a href="/busystatus"><iconify-icon
+          icon="ic:round-center-focus-strong"></iconify-icon></iconify-icon></a></button>
+    <button id="away" title="Away"><a href="/awaystatus"><iconify-icon
+          icon="line-md:arrow-small-left"></iconify-icon></a></button>
+    <button id="dnd" title="Do not disturb (DnD)"><a href="/dndstatus"><iconify-icon
+          icon="mdi:bell-off-outline"></iconify-icon></a></button>
+    <div class="status-msg">
+      {%for statusname in name%}
+
+
+      {%if statusname[11]=="Busy":%}
+      <p id="busy-mark">{{statusname[11]}}</p>
+
+      {%elif statusname[11]=="Away": %}
+      <p id="away-mark">{{statusname[11]}}</p>
+
+      {%else:%}
+      <p id="dnd-mark">{{statusname[11]}}</p>
+      {%endif%}
+
+      {%endfor%}
+    </div>
+    <p id="refresh-button" onClick="window.location.reload(true);popUp();"><i class="fa fa-rotate-right"></i></p>
+
+    <p id="leave-apply"><a href="/leaveform">Apply Leave</a></p>
+    <p id="logtime"><a href="/attendancelog">Log Time</a></p>
+
+  </div>
+
+  <div class="main">
+    <div class="flex-a">
+      <div class="new-hires">
+        <div class="titles">
+          <h3 id="new-hires">New Hires</h3>
+        </div>
+        <br />
+        <div class="new-hire-list">
+          {%for people in newhires%}
+          <ul>
+            <li id="people-list">
+              <div class="list">
+                <p id="newhires-name"><b>{{people[1]}}</b></p>
+                <p id="newhires-doj">{{people[3]}}</p>
+              </div>
+            </li>
+            <br />
+            <li id="people-list">
+              <div class="list">
+                <p id="newhires-name"><b>{{people[1]}}</b></p>
+                <p id="newhires-doj">{{people[3]}}</p>
+              </div>
+            </li>
+            <br />
+            <li id="people-list">
+              <div class="list">
+                <p id="newhires-name"><b>{{people[1]}}</b></p>
+                <p id="newhires-doj">{{people[3]}}</p>
+              </div>
+            </li>
+            <br />
+            <li id="people-list">
+              <div class="list">
+                <p id="newhires-name"><b>{{people[1]}}</b></p>
+                <p id="newhires-doj">{{people[3]}}</p>
+              </div>
+            </li>
+            <br />
+            <li id="people-list">
+              <div class="list">
+                <p id="newhires-name"><b>{{people[1]}}</b></p>
+                <p id="newhires-doj">{{people[3]}}</p>
+              </div>
+            </li>
+            <br />
+            <li id="people-list">
+              <div class="list">
+                <p id="newhires-name"><b>{{people[1]}}</b></p>
+                <p id="newhires-doj">{{people[3]}}</p>
+              </div>
+            </li>
+            <br />
+          </ul>
+          {%endfor%}
+        </div>
+      </div>
+
+      <div class="attendance">
+        <div id="titles">
+          <h3 id="attendance">Attendance</h3>
+        </div>
+        <div class="attendance-site">
+          
+            <input type="text" name="notes" id="day-note" placeholder="Add Notes" />
+        
+         
+            
+         
+       
+
+           {%if checkedin%} 
+          <p id="checkout-bar"><a href="/checkout">Check Out <br><span id="ct"></span></a></p>
+          {%else%}
+          <p id="checkin-bar"><a href="/checkin">Check In <br><span id="ct"></span></a></p>
+          {%endif%}
+        </div>
+<div id="in-out-status">
+  {%if checkedin %}
+  <p id="officein"><b>Office In</b></p>
+  {%else%}
+  <p id="officeout"><b>Out</b></p>
+  {%endif%}
+</div>
+      </div>
+
+      <div class="leave-report">
+        <div id="titles">
+          <h3 id="leave-report">Leave Report</h3>
+        </div>
+        <div class="absent">
+          <div role="absent-progressbar" aria-valuemin="0" style="--value:5"></div>
+          <div class="category"><b>Absent</b> <br>Available 5 Day(s)</div>
+        </div>
+        <br>
+        <div class="compensatoryoff">
+          <div role="compensatoryoff-progressbar" aria-valuemin="0" style="--value:2"></div>
+          <div class="category"><b>Compensatory Off</b> <br>Available 2 Day(s)</div>
+        </div>
+
+        <br>
+
+
+        <div class="onduty">
+          <div role="onduty-progressbar" aria-valuemin="0" style="--value:1"></div>
+          <div class="category"><b>On Duty</b> <br>Available 1 Day(s)</div>
+        </div>
+
+        <br>
+
+        <div class="opt-holiday">
+          <div role="opt-holiday-progressbar" aria-valuemin="0" style="--value:4"></div>
+          <div class="category"><b>Optional Holiday - 2023</b> <br>Available 4 Day(s)</div>
+        </div>
+        <br>
+
+        <div class="team-trip">
+          <div role="team-trip-progressbar" aria-valuemin="0" style="--value:1"></div>
+          <div class="category"><b>Team Trip</b> <br>Available 1 Day(s)</div>
+        </div>
+
+        <br>
+      </div>
+     </div>
+
+
+    <div class="flex-b">
+      <div class="holiday-list">
+        <div id="titles">
+          <h3 id="holiday-list">Holiday Lists</h3>
+        </div>
+        <div class="holidays">
+          {%for holiday in holidays%}
+          <ul>
+            <li id="holiday">
+              <div class="hlist">
+                <p id="holiday-name"><b>{{holiday[0]}}</b></p>
+                <p id="holiday-date">{{holiday[1]}} &nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{holiday[2]}})
+                </p>
+              </div>
+            </li>
+          </ul>
+          {%endfor%}
+        </div>
+      </div>
+
+      <div class="quick-links">
+        <div id="titles">
+          <h3 id="quicklinks">Quick Links</h3>
+        </div>
+        
+        {%for val in quicklinks%}
+          <ul>
+            
+            <li id="quick-link">
+              <div class="qlinklist">
+                <p id="link-name"><iconify-icon icon="material-symbols:link" style="color: indigo;" rotate="180deg" id="link-icon"></iconify-icon>
+                  <p id="link-field"><a href="{{val[2]}}" target="_blank">{{val[3]}}</a></p><b></b></p>
+                  <p id="link-date">{{val[1]}}</p>
+                
+              </div>
+            </li><hr id="ql-hr">
+
+
+
+
+
+
+           
+
+            
+          </ul>
+         {%endfor%}
+        </div>
+  
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="mygoals">
+        <div id="titles">
+          <h3 id="mygoals">My Tasks<a href="/goals"><i class="fa fa-plus" id="plus-icon"></i></a></h3>
+        </div>
+
+        <div class="goal-lists">
+          {%for goal in goals%}
+          <ul>
+            <li id="goal-list"><a href="/goaldetails/{{goal[1]}}">{{goal[2]}}</a></li>
+           </ul>
+          {%endfor%}
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+
+
+<br>
+  <div class="weather-bar">
+    <p id="weather-icon"><iconify-icon id="icon-weather"icon="arcticons:weather"></iconify-icon>&nbsp;&nbsp;<a href="{{url_for('weather')}}">weather</a>
+    </p>
+  </div>
+  <script>
+    var loader = document.getElementById("preloader");
+
+    window.addEventListener("load", function () {
+      loader.style.display = "none";
+    });
+  </script>
+
+
+
+</body>
+
+</html>

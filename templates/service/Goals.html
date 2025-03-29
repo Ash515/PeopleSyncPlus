@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Professionals</title>
+        <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+    <link rel="icon" href="/static/Assets/hr-icon.png">
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{url_for('static',filename='Goals.css')}}"
+  />
+
+  <script src="/static/Goals.js"></script>
+    </head>
+
+
+<body>
+
+    <div class="notification">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+           {% for message in messages %}
+              {{ message }}
+           {% endfor %}
+        {% endif %}
+     {% endwith %}
+    </div>
+    <div class="main">
+         
+        
+        <form action="" method="post" >
+        
+            <p id="title"><a href="/main"><iconify-icon icon="line-md:arrow-left" id="back"></iconify-icon></a>&nbsp;&nbsp;&nbsp;Task Details</p><br>
+            {%for name in empdetails%}
+          Task Owner      <span id="ownername">{{name[2]}}</span> <br>
+            {%endfor%}
+          Task Name <input type="text" required id="tname" name="tname"> <br><hr>
+          Description <input type="text" required id="description" name="description"><br><hr>
+          Start Date  <input type="date" id="startdate" name="startdate" required><br><hr>
+          Due Date     <input type="date" id="duedate" name="duedate" required> <br>      <hr>
+          Periority     <select name="priority" id="periority" ><option>Moderate</option><option>Low</option><option>High</option></select>   <br><hr>
+          Status        <select name="status" id="status" ><option>Open</option><option>Close</option></select>   <br><hr>
+          <input type="submit" id="submit-field"> 
+         
+
+        </form>
+        
+    </div>
+    
+</body>
+
+
+
+</html>

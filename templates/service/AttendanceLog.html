@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Professionals</title>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='AttendanceLog.css')}}" />
+  <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="icon" href="/static/Assets/hr-icon.png">
+</head>
+
+<body>
+    <div class="title-bar">
+            <p><b><center>Attendance Logs</center></b></p>
+    </div>
+
+
+    <div class="layout-bar">
+        <div class="details-bar">
+            <p id="back-button"><a href="/main"><iconify-icon icon="akar-icons:arrow-back-thick-fill"   style="color: maroon;"></iconify-icon></a></p>
+            <p id="empid">Employee ID -{{session_id}} </p> 
+           
+            <form action="" method="post">
+                
+                 Date : <input placeholder="YYYY-MM-DD" name="givendate" id="givendate" required>
+                 <input type="submit" id="submit-button" value="Search">
+            </form>
+        </div>
+     
+
+
+
+        <div class="information-layout">
+           
+            
+            
+            <p id="dateinfo"><b>Queried Date:</b> {{Qdate}}</p>
+            <div class="table-field">
+                {%if not timerecords%}
+                <img src="/static/Assets/emptyicon.jpg" id="emptyIcon">
+                {%else%}
+                {%for i in timerecords%} 
+            <table>
+                
+                <tr>
+                  
+                  <th>Check In(s)</th>
+                  <th>Check Out(s)</th>
+                </tr>
+               
+                
+                
+               <ul>
+                
+                <li>
+                    <tr>
+                    
+                        <td>{{i[2]}}</td>
+                        <td>{{i[3]}}</td>
+                    </tr>
+
+                </li>
+                
+               </ul>
+               {%endfor%}
+               {%endif%}
+                
+                   
+
+                         
+              
+                                                                                                                
+</table>
+
+ </div>
+ 
+    </div>
+</div>
+</body>
+</html>

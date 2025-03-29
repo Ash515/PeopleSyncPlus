@@ -1,0 +1,695 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-bar-a {
+  background-color: rgb(29, 8, 29);
+  color: white;
+  width: 1520px;
+  height: 50px;
+  display: inline-flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+ 
+}
+
+
+
+#app-name {
+  padding-left: 30px;
+  font-size: 18px;
+}
+
+#services {
+  margin-left: 600px;
+}
+#self-service {
+  margin-left: 50px;
+}
+#org {
+  margin-left: 50px;
+}
+#approvals {
+  margin-left: 50px;
+}
+#logout {
+  margin-left: 70px;
+  padding-left: 15px;
+  background-color: rgb(40, 40, 134);
+  width: 150px;
+  height: 30px;
+  /* text-align: center; */
+  border-radius: 5px;
+}
+
+#signout-icon{
+  padding-left: 10px;
+  padding-top: 5px;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-bar-b {
+  height: 55px;
+  width: 1520px;
+  background-color: white;
+  display: inline-flex;
+  box-shadow: 2px 2px rgb(236, 212, 212);
+}
+
+#busy{
+  height:30px;
+  margin-top:15px;
+  margin-left: 20px;
+  background-color: rgba(59, 15, 15, 0.733);
+  border-radius: 50px;
+  color:black;
+  width:50px;
+  font-size: 20px;
+  border-style: none;
+  text-align: center;
+  padding-top: 5px;
+}
+#busy-mark{
+  color:red;
+}
+#away-mark{
+  color:rgba(22, 120, 22, 0.874);
+}
+#dnd-mark{
+  color:palegreen;
+}
+
+#away{
+  height:30px;
+  margin-top:15px;
+  margin-left: 20px;
+  background-color:rgb(32, 182, 32);
+  border-radius: 50px;
+  color:black;
+  width:50px;
+  font-size: 20px;
+  border-style: none;
+  text-align: center;
+  padding-top: 5px;
+}
+
+#dnd{
+  height:30px;
+  margin-top:15px;
+  margin-left: 20px;
+  background-color:peachpuff;
+  border-radius: 50px;
+  color:black;
+  width:50px;
+  font-size: 20px;
+  border-style: none;
+  text-align: center;
+  padding-top: 5px;
+}
+
+
+
+#checkin-tbar {
+  margin-left: 30px;
+  background-color: rgba(0, 128, 0, 0.443);
+  border-radius: 20px;
+  width: 110px;
+  cursor: pointer;
+  height: 30px;
+  text-align: center;
+  color: white;
+  display: inline-flex;
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: 14px;
+  
+}
+#checkout-tbar {
+  margin-left: 30px;
+  background-color:  rgb(137, 37, 37);
+  border-radius: 20px;
+  width: 110px;
+  cursor: pointer;
+  height: 30px;
+  text-align: center;
+  color: white;
+  display: inline-flex;
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: 14px;
+  
+}
+#alarm{
+  font-size: 20px;
+}
+/* button title{
+  border-radius: 5px;
+} */
+
+.status-msg{
+  margin-top: 0px;
+  margin-left: 15px;
+}
+
+#refresh-button {
+  width: 50px;
+  height: 30px;
+  margin-left:650px;
+  cursor: pointer;
+  width: 60px;
+  text-align: center;
+  height: 30px;
+  background-color: white;
+  border-radius: 5px;
+  /* transition-duration: 1s; */
+}
+#refresh-button:hover {
+  width: 60px;
+  text-align: center;
+  height: 30px;
+  border-radius: 5px;
+  background-color: rgba(255, 192, 203, 0.368);
+}
+
+#leave-apply {
+  margin-left: 30px;
+  background-color: rgba(137, 43, 226, 0.71);
+  color: white;
+  height: 30px;
+  width: 110px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#leave-apply:hover {
+  background-color: rgba(137, 43, 226, 0.537);
+}
+#logtime {
+  margin-left: 50px;
+  margin-right: 30px;
+  background-color: rgb(158, 73, 87);
+  color: white;
+  height: 30px;
+  width: 110px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#logtime:hover {
+  background-color: rgba(158, 73, 87, 0.779);
+}
+
+.main {
+  background-color: rgba(0, 255, 255, 0.509);
+  height: 100%;
+  width: 100%;
+}
+.flex-a {
+  display: flex;
+}
+
+.new-hires {
+  width: 500px;
+  height: 350px;
+  
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+  box-shadow: 5px 10px rgb(236, 212, 212);
+  overflow: auto;
+}
+
+#new-hires{
+  padding-left: 20px;
+}
+
+
+.attendance {
+  width: 500px;
+  height: 350px;
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+  box-shadow: 5px 10px rgb(236, 212, 212);
+}
+
+.leave-report {
+  width: 500px;
+  height: 350px;
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
+  overflow: auto;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+  box-shadow: 5px 10px rgb(236, 212, 212);
+}
+
+.flex-b {
+  display: flex;
+}
+
+.holiday-list {
+  width: 500px;
+  height: 400px;
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
+  overflow: auto;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+  box-shadow: 5px 10px rgb(236, 212, 212);
+}
+.quick-links {
+  width: 500px;
+  height: 400px;
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
+  overflow: auto;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+  box-shadow: 5px 10px rgb(236, 212, 212);
+}
+#ql-hr{
+  margin-right: 25px;
+  color:rgba(128, 128, 128, 0.363);
+  font-size: 5px;
+}
+#link-icon{
+  /* top:10px; */
+  font-size: 24px;
+}
+.qlinklist{
+  display: inline-flex;
+}
+.quick-links a{
+  color:grey;
+}
+#link-field{
+  padding-left: 30px;
+}
+#link-date{
+  padding-left: 200px;
+  padding-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mygoals{
+  width: 500px;
+  height: 400px;
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: white;
+  overflow:auto;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 5px;
+  box-shadow: 5px 10px rgb(236, 212, 212);
+}
+
+#goal-list{
+  background-color: rgba(0, 128, 0, 0.178);
+  width:400px;
+  height:40px;
+  padding-left: 10px;
+  padding-top: 10px;
+  border-radius: 5px;
+ 
+   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+#goal-list a{
+  color:black;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+
+#plus-icon{
+  margin-left: 20px;
+  font-size: 14px;
+  background-color: rgba(0, 128, 0, 0.518);
+  color:white;
+  width:20px;height:15px;
+  text-align: center;
+  border-radius: 10px;
+  padding-top: 5px;
+  cursor: pointer;
+}
+
+#titles {
+  height: 30px;
+  padding-left: 30px;
+
+  /* position: fixed;
+background-color: white;
+width:430px; */
+}
+
+ul li {
+  list-style-type: none;
+}
+
+
+
+#people-list {
+  /* padding: 0px 10px 0px 10px; */
+  height: 50px;
+  padding-left: 5px;
+  width: 400px;
+  border-radius: 5px;
+  background-color: rgba(255, 192, 203, 0.559);
+}
+.list {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+#newhires-doj {
+  padding-left: 250px;
+  padding-right: 20px;
+}
+
+#holiday {
+  background-color: white;
+  height: 50px;
+  width: 380px;
+  padding-left: 20px;
+  box-shadow: 2px 2px rgb(236, 212, 212);
+}
+
+.attendance-site {
+  display: inline-flex;
+}
+
+#checkin-bar {
+  background-color: rgba(0, 128, 0, 0.443);
+  width: 190px;
+  height: 40px;
+  margin-left: 10px;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  padding-top: 5px;
+  cursor: pointer;
+}
+#checkout-bar {
+  background-color: rgb(137, 37, 37);
+  width: 190px;
+  height: 40px;
+  margin-left:10px;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  padding-top: 5px;
+  cursor: pointer;
+  /* display: none; */
+
+}
+#day-note {
+  height: 40px;
+  margin-left: 30px;
+  margin-top: 15px;
+  width: 230px;
+  font-size: 16px;
+}
+#day-note::placeholder {
+  padding-left: 10px;
+}
+
+#in-out-status{
+  text-align: center;
+}
+
+
+#officein{
+  color: green;
+  font-size: 14px;
+}
+
+#officeout{
+  color: red;
+  font-size: 14px;
+}
+
+
+#preloader {
+  background: #fff url("/static/Assets/loading.gif") no-repeat center;
+  background-size: 15%;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}
+.leave-report p {
+  margin-left: 150px;
+  margin-right: 20px;
+  height: 30px;
+  width: 300px;
+  cursor: pointer;
+  background-color: white;
+  /* box-shadow: 2px 2px rgb(236, 212, 212); */
+}
+#leave-report-content {
+  font-size: 15px;
+}
+
+@keyframes growProgressBar {
+  0%,
+  33% {
+    --pgPercentage: 0;
+  }
+  10% {
+    --pgPercentage: var(--value);
+  }
+}
+
+@property --pgPercentage {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+div[role="absent-progressbar"] {
+  margin-left: 20px;
+
+  --size: 4rem;
+  --fg: rgba(51, 102, 153, 0.639);
+  --bg: #def;
+  --pgPercentage: var(--value);
+  animation: growProgressBar 3s 1 forwards;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+      closest-side,
+      white 80%,
+      transparent 0 99.9%,
+      white 0
+    ),
+    conic-gradient(var(--fg) calc(var(--pgPercentage) * 20%), var(--bg) 0);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--size) / 5);
+  color: var(--fg);
+}
+
+div[role="absent-progressbar"]::before {
+  counter-reset: percentage var(--value);
+  content: counter(percentage);
+}
+
+.absent {
+  display: inline-flex;
+}
+.category {
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+div[role="compensatoryoff-progressbar"] {
+  margin-left: 20px;
+
+  --size: 4rem;
+  --fg: rgba(255, 166, 0, 0.639);
+  --bg: #def;
+  --pgPercentage: var(--value);
+  animation: growProgressBar 3s 1 forwards;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+      closest-side,
+      white 80%,
+      transparent 0 99.9%,
+      white 0
+    ),
+    conic-gradient(var(--fg) calc(var(--pgPercentage) * 50%), var(--bg) 0);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--size) / 5);
+  color: var(--fg);
+}
+
+div[role="compensatoryoff-progressbar"]::before {
+  counter-reset: percentage var(--value);
+  content: counter(percentage);
+}
+
+.compensatoryoff {
+  margin-top: 20px;
+  display: inline-flex;
+}
+
+div[role="onduty-progressbar"] {
+  margin-left: 20px;
+
+  --size: 4rem;
+  --fg: rgba(165, 42, 42, 0.63);
+  --bg: #def;
+  --pgPercentage: var(--value);
+  animation: growProgressBar 3s 1 forwards;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+      closest-side,
+      white 80%,
+      transparent 0 99.9%,
+      white 0
+    ),
+    conic-gradient(var(--fg) calc(var(--pgPercentage) * 100%), var(--bg) 0);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--size) / 5);
+  color: var(--fg);
+}
+
+div[role="onduty-progressbar"]::before {
+  counter-reset: percentage var(--value);
+  content: counter(percentage);
+}
+
+.onduty {
+  margin-top: 20px;
+  display: inline-flex;
+}
+
+div[role="opt-holiday-progressbar"] {
+  margin-left: 20px;
+
+  --size: 4rem;
+  --fg: rgba(0, 0, 255, 0.603);
+  --bg: #def;
+  --pgPercentage: var(--value);
+  animation: growProgressBar 3s 1 forwards;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+      closest-side,
+      white 80%,
+      transparent 0 99.9%,
+      white 0
+    ),
+    conic-gradient(var(--fg) calc(var(--pgPercentage) * 25%), var(--bg) 0);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--size) / 5);
+  color: var(--fg);
+}
+
+div[role="opt-holiday-progressbar"]::before {
+  counter-reset: percentage var(--value);
+  content: counter(percentage);
+}
+
+.opt-holiday {
+  margin-top: 20px;
+  display: inline-flex;
+}
+
+div[role="team-trip-progressbar"] {
+  margin-left: 20px;
+
+  --size: 4rem;
+  --fg: rgba(0, 128, 0, 0.667);
+  --bg: #def;
+  --pgPercentage: var(--value);
+  animation: growProgressBar 3s 1 forwards;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+      closest-side,
+      white 80%,
+      transparent 0 99.9%,
+      white 0
+    ),
+    conic-gradient(var(--fg) calc(var(--pgPercentage) * 100%), var(--bg) 0);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--size) / 5);
+  color: var(--fg);
+}
+
+div[role="team-trip-progressbar"]::before {
+  counter-reset: percentage var(--value);
+  content: counter(percentage);
+}
+
+.team-trip {
+  margin-top: 20px;
+  display: inline-flex;
+}
+
+div.weather-bar{
+background-color: rgb(29, 8, 29);
+color:white;
+height:30px;
+padding-left: 30px;
+padding-top: 0px;
+position: -webkit-sticky;
+        position: sticky;
+        bottom: 0;
+}
+.weather-bar a{
+  color: white;
+}
+#icon-weather{
+  font-size: 20px;
+  color:white;
+  /* padding-top: 2px; */
+}
