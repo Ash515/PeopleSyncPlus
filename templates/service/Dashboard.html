@@ -63,6 +63,8 @@
   <!-- Navigation Bar-C -->
   <div class="main">
     <div class="flex-a">
+
+      <!-- People Tile -->
       <div class="new-hires">
         <div class="titles">
             <h3 id="new-hires">People</h3>
@@ -84,33 +86,70 @@
         </div>
     </div>
 
-      <div class="attendance">
+
+    <!-- Attendance Tile -->
+      <!-- <div class="attendance">
         <div id="titles">
           <h3 id="attendance">Attendance</h3>
         </div>
         <div class="attendance-site">
-          
-            <input type="text" name="notes" id="day-note" placeholder="Add Notes" />
         
-         
-            
-         
-       
-
-           {%if checkedin%} 
+        {%if checkedin%} 
           <p id="checkout-bar"><a href="/checkout">Check Out <br><span id="ct"></span></a></p>
           {%else%}
           <p id="checkin-bar"><a href="/checkin">Check In <br><span id="ct"></span></a></p>
           {%endif%}
+
+          <div id="in-out-status">
+            {%if checkedin %}
+            <p id="officein"><b>Office In</b></p>
+            {%else%}
+            <p id="officeout"><b>Out</b></p>
+            {%endif%}
+          </div>
         </div>
-<div id="in-out-status">
-  {%if checkedin %}
-  <p id="officein"><b>Office In</b></p>
-  {%else%}
-  <p id="officeout"><b>Out</b></p>
-  {%endif%}
-</div>
+
+      </div> -->
+
+      <div class="attendance">
+        <div id="titles">
+            <h3 id="attendance">Attendance</h3>
+        </div>
+        <div class="attendance-site">
+        
+            {% if checkedin %} 
+            <p id="checkout-bar" onclick="checkOut()">
+                <a href="/checkout">Check Out <br><span id="timer">00:00:00</span></a>
+            </p>
+            {% else %}
+            <p id="checkin-bar" onclick="checkIn()">
+                <a href="/checkin">Check In <br><span id="timer">00:00:00</span></a>
+            </p>
+            {% endif %}
+    
+            <div id="in-out-status">
+                {% if checkedin %}
+                <p id="officein"><b>Office In</b></p>
+                {% else %}
+                <p id="officeout"><b>Out</b></p>
+                {% endif %}
+            </div>
+            
+            
+        </div>
+        <div id="date-display">
+          <p id="current-date"></p>
       </div>
+
+    
+      <div class="shift-container">
+        <p id="shift-details">{{ shift }}</p>
+    </div>
+
+    <br>
+      <p id="productivity-quote"></p> 
+    </div>
+    
 
       <div class="leave-report">
         <div id="titles">

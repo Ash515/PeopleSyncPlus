@@ -119,8 +119,6 @@ def main():
       cur.execute('select * from goalset where empid=%s',(eid,))
       goals=cur.fetchall()
       global checkedin
-    #   global n
-    #   n="Ashwin"
       cur = con.cursor()
       cur.execute('SELECT checkin FROM empinfo where empid=%s',(eid,))
       checkintime=cur.fetchone()
@@ -131,13 +129,10 @@ def main():
       checkindate=cur.fetchone()
       cur.execute('SELECT checkoutdate FROM empinfo where empid=%s',(eid,))
       checkoutdate=cur.fetchone()
+      
       t = time.localtime()
       checkin_time = time.strftime("%H:%M:%S", t)
       checkin_date=date.today()
-    
-    #   if checkintime and checkindate == None:
-        # cur.execute("UPDATE empinfo SET checkintime= %s and checkindate=%s where empid=%s",(checkin_time,checkin_date,eid,))
-        #   con.commit()
       if checkintime<checkouttime and checkindate==checkoutdate:
              checkedin=False
       elif checkintime<checkouttime and checkindate<checkoutdate:
@@ -146,35 +141,16 @@ def main():
                   checkedin=False
       else:
            checkedin=True
-     
-
-	
-    #   checkout_time = "00:00:00"
-    #   checkout_date= "0000-00-00"
-    #   if checkouttime and checkoutdate == None:
-    #       cur.execute("UPDATE empinfo SET checkoutdate = %s and checkouttime where empid=%s",(checkout_date,checkout_time,eid,))
-    #       con.commit()
-         
-        #   else:
-        #    checkedin=True
-     
-    
-    #   if checkintime<checkouttime and checkindate==checkoutdate:
-    #         checkedin=False
-    #   elif checkintime<checkouttime and checkindate<checkoutdate:
-    #             checkedin=False
-          
-    #   else:
-    #       checkedin=True
-      
 
      
       cur = con.cursor()
       cur.execute('SELECT * FROM quicklinks')
       quicklinks=cur.fetchall()
 
-
-      return render_template('/service/Dashboard.html',n=n,checkedin=checkedin,name=ename,id=session['empid'],newhires=newhires,holidays=holidays,goals=goals,quicklinks=quicklinks)
+      cur.execute('SELECT shift FROM empinfo where empid=%s',(eid,))
+      shift=cur.fetchone()
+      formatted_shift = shift[0] if shift else "Shift details not available"
+      return render_template('/service/Dashboard.html',n=n,shift=formatted_shift,checkedin=checkedin,name=ename,id=session['empid'],newhires=newhires,holidays=holidays,goals=goals,quicklinks=quicklinks)
 
 
 # @app.route("/availablestatus")
