@@ -5,6 +5,7 @@ body {
     background-color: #f4f4f4;
     color: #333;
     text-align: center;
+    overflow-x: hidden;
 }
 
 header {
@@ -31,7 +32,7 @@ header {
 }
 
 .signin {
-    margin-right: 20px;
+    margin-left: 380px;
 }
 
 .signin .btn {
@@ -82,4 +83,16 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+}
+.admin-console .adminconsolebtn {
+    text-decoration: none;
+    background: #0077b6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.admin-console .adminconsolebtn:hover {
+    background: #005f8a;
 }

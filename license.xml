@@ -1,0 +1,4 @@
+<License><LicenseKey>ABC123-XYZ789-PQR456</LicenseKey>
+<CompanyName>Example Corp</CompanyName>
+<AdminEmail>admin@example.com</AdminEmail>
+<ValidFrom>2025-03-29</ValidFrom><ValidTo>2026-03-29</ValidTo><MaxUsers>50</MaxUsers><Features><Feature name="UserManagement">Enabled</Feature><Feature name="Reports">Enabled</Feature><Feature name="Security">Enabled</Feature></Features></License>

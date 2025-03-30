@@ -1,0 +1,79 @@
+<!-- Admin Registration Page -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            width: 400px;
+            margin: 100px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 300px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+    <link rel="icon" href="/static/Assets/PSP_Icon.png">
+</head>
+<body>
+    <div class="container">
+        <h2>Admin Registration</h2>
+        <form id="admin-form">
+            <input type="text" id="admin-name" placeholder="Admin Name" required>
+            <input type="email" id="admin-email" placeholder="Email" required>
+            <input type="password" id="admin-password" placeholder="Password" required>
+            <input type="file" id="license-key" placeholder="License Key" required>
+            <button type="button" ><a href="{{url_for('ManageEmpdata')}}">Register</a></button>
+        </form>
+
+        <!-- onclick="registerAdmin()" -->
+        <p id="message"></p>
+    </div>
+    
+    <script>
+        function registerAdmin() {
+            let name = document.getElementById("admin-name").value;
+            let email = document.getElementById("admin-email").value;
+            let password = document.getElementById("admin-password").value;
+            let licenseKey = document.getElementById("license-key").value;
+            
+            fetch('/register_admin', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name, email, password, licenseKey})
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("message").innerText = data.message;
+                if (data.success) {
+                    setTimeout(() => { window.location.href = '/admin_home'; }, 2000);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

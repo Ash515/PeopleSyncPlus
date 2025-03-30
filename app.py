@@ -471,10 +471,58 @@ def weather():
 
 	
 
-#Admin Interface
-# @app.route('/adminlogin',methods=['POST','GET'])
-# def 
+#Admin Interface- Starts
 
+admincursor = con.cursor()
+@app.route('/AdminLanding')
+def AdminLanding():
+    return render_template('/Admin/AdminLanding.html')
+
+
+@app.route('/ManageEmpdata')
+def ManageEmpdata():
+    return render_template('/Admin/ManageEmpdata.html')
+
+@app.route('/add_employee', methods=['POST'])
+def add_employee():
+    empid = request.form.get('empid')
+    name = request.form.get('name')
+    phno = request.form.get('phno')
+    seating = request.form.get('seating')
+    destination = request.form.get('destination')
+    team = request.form.get('team')
+    manager = request.form.get('manager')
+    org = request.form.get('org')
+    doj = request.form.get('doj')
+    officelocation = request.form.get('officelocation')
+    shift = request.form.get('shift')
+    employmentstatus = request.form.get('employmentstatus')
+    profile_pic = request.files['profile_pic'].read()
+    emppass = request.form.get('emppass')
+
+    # if empid:
+    #     admincursor.execute("""
+    #         UPDATE empinfo SET name=%s, phno=%s, seating=%s, destination=%s, 
+    #         team=%s, manager=%s, org=%s, doj=%s, officelocation=%s, shift=%s, 
+    #         employmentstatus=%s, profile_pic=%s WHERE empid=%s
+    #     """, (name, phno, seating, destination, team, manager, org, doj, officelocation, shift, employmentstatus, profile_pic, empid))
+    # else:
+    admincursor.execute("""
+    INSERT INTO empinfo (empid,name, phno, seating, destination, team, manager, 
+    org, doj, officelocation, shift, employmentstatus, profile_pic,emppass) 
+            VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s)
+        """, (empid,name, phno, seating, destination, team, manager, org, doj, officelocation, shift, employmentstatus, profile_pic,emppass))
+
+    con.commit()
+    return redirect(url_for('index'))
+
+@app.route('/delete_employee/<int:empid>')
+def delete_employee(empid):
+    admincursor.execute("DELETE FROM empinfo WHERE empid=%s", (empid,))
+    con.commit()
+    return redirect(url_for('index'))
+
+    
 
 
 
