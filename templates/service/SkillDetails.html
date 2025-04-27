@@ -141,10 +141,10 @@
             {%for emp in empid_matcher %}
             {% if emp[0]==seid:%}
             {%for k in del_id %}
-            <button id="delete-button" onclick="return confirmation()"><a href="{{url_for('delete_data',uid=k)}}">Delete</a></button> 
+            <button id="delete-button" onclick="return confirmation()"><a href="{{url_for('ClientApp.delete_data',uid=k)}}">Delete</a></button> 
             {%endfor%}
             
-            <button id="update-button"><a href="{{url_for('employeeinfo',eid=seid)}}">Cancel</a></button>
+            <button id="update-button"><a href="{{url_for('ClientApp.employeeinfo',eid=seid)}}">Cancel</a></button>
             {%endif%}
             {%endfor%}
         </div>

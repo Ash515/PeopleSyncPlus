@@ -1,23 +1,38 @@
+#Flask Imports
 from flask import *
-from flask import flash
+from flask import flash,Blueprint
 import bcrypt
 import os
-# from flask_mysqldb import MySQL
-# import MySQLdb.cursors
 import requests
 from flask_login import LoginManager
 from functools import wraps
 from wtforms import *
-import psycopg2
+
+#Common Imports
+import urllib.request
 from utils import format_checkin
 import time
 from datetime import date
-import urllib.request
+
+#Pgsql Imports
+import psycopg2
+
+#MySQl Imports
+# from flask_mysqldb import MySQL
+# import MySQLdb.cursors
+
+
+#Native DB Imports
+from dbparams import con
+from dbparams import get_cursor
+
+#Native Files
+import AdminScript
 
 # login_manager = LoginManager()
 
 
-app=Flask(__name__,template_folder='templates')
+ClientApp=Blueprint('ClientApp', __name__, template_folder='templates')
 
 """
 MySQL configuration
@@ -29,18 +44,18 @@ app.config['MYSQL_DB']='professionals'
 mysql=MySQL(app)
 login_manager.init_app(app)
 """
-con = psycopg2.connect(dbname="professionals", user='postgres', host='localhost', password='Post@515',port=5433)
+# con = psycopg2.connect(dbname="professionals", user='postgres', host='localhost', password='Post@515',port=5433)
 
 
-@app.route('/')
+@ClientApp.route('/')
 def index():
     return render_template('/Index.html')
 
-@app.errorhandler(404) 
+@ClientApp.errorhandler(404) 
 def invalid_route(e): 
     return "Invalid route."
 
-@app.route('/signin')
+@ClientApp.route('/signin')
 def signin():
     return render_template('/Auth/Signin.html')
 
@@ -56,7 +71,7 @@ def login_required(f):
 
 
 
-@app.route('/empsignin',methods=['GET','POST'])
+@ClientApp.route('/empsignin',methods=['GET','POST'])
 def empsigin():
     message = ''
     # Check if "username" and "password" POST requests exist (user submitted form)
@@ -66,7 +81,7 @@ def empsigin():
         emppassword = request.form['emppass']
         # Check if account exists using MySQL
        # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur1 = con.cursor()
+        cur1 = get_cursor()
         cur1.execute('SELECT * FROM empinfo WHERE empid = %s AND emppass = %s', (empid, emppassword))
         # Fetch one record and return result
         
@@ -80,7 +95,8 @@ def empsigin():
             
             # Redirect to Dashboard page
            # return render_template('/service/Dashboard.html')
-            return redirect(url_for('main'))
+            return redirect(url_for('ClientApp.main'))
+        
         else:
             # Account doesnt exist or username/password incorrect
             message = 'Incorrect username/password!'
@@ -91,7 +107,7 @@ def empsigin():
 # def load_user(user_id):
 #     return User.get(user_id)
 
-@app.route('/backtomain')
+@ClientApp.route('/backtomain')
 def backtomain():
     return render_template('/service/Dashboard.html')
 
@@ -101,128 +117,121 @@ def backtomain():
 checkedin=False
 global n
 n="text"
-@app.route('/main')
+
+
+@ClientApp.route('/main')
 #@login_required
-
 def main():
-   
-      eid=session['empid']
-      cur2 = con.cursor()
-      cur2.execute('SELECT * FROM empinfo WHERE empid= %s ',(eid,))
-      ename=cur2.fetchall()
-      con.commit()
-      cur = con.cursor()
-      cur.execute('SELECT * FROM empinfo')
-      newhires=cur.fetchall()
-      cur.execute('select * from holidays')
-      holidays=cur.fetchall()
-      cur.execute('select * from goalset where empid=%s',(eid,))
-      goals=cur.fetchall()
-      global checkedin
-      cur = con.cursor()
-      cur.execute('SELECT checkin FROM empinfo where empid=%s',(eid,))
-      checkintime=cur.fetchone()
-      cur = con.cursor()
-      cur.execute('SELECT checkout FROM empinfo where empid=%s',(eid,))
-      checkouttime=cur.fetchone()
-      cur.execute('SELECT checkindate FROM empinfo where empid=%s',(eid,))
-      checkindate=cur.fetchone()
-      cur.execute('SELECT checkoutdate FROM empinfo where empid=%s',(eid,))
-      checkoutdate=cur.fetchone()
-      
-      t = time.localtime()
-      checkin_time = time.strftime("%H:%M:%S", t)
-      checkin_date=date.today()
-      if checkintime<checkouttime and checkindate==checkoutdate:
-             checkedin=False
-      elif checkintime<checkouttime and checkindate<checkoutdate:
-                 checkedin=False
-      elif checkintime>checkouttime and checkindate<checkoutdate:
-                  checkedin=False
-      else:
-           checkedin=True
+    eid = session['empid']
+    cur = get_cursor()
+    cur.execute('SELECT * FROM empinfo WHERE empid= %s', (eid,))
+    ename = cur.fetchall()
+    con.commit()
 
-     
-      cur = con.cursor()
-      cur.execute('SELECT * FROM quicklinks')
-      quicklinks=cur.fetchall()
+    cur.execute('SELECT * FROM empinfo')
+    newhires = cur.fetchall()
 
-      cur.execute('SELECT shift FROM empinfo where empid=%s',(eid,))
-      shift=cur.fetchone()
-      formatted_shift = shift[0] if shift else "Shift details not available"
-      return render_template('/service/Dashboard.html',n=n,shift=formatted_shift,checkedin=checkedin,name=ename,id=session['empid'],newhires=newhires,holidays=holidays,goals=goals,quicklinks=quicklinks)
+    cur.execute('SELECT * FROM holidays')
+    holidays = cur.fetchall()
 
+    cur.execute('SELECT * FROM goalset WHERE empid=%s', (eid,))
+    goals = cur.fetchall()
 
-# @app.route("/availablestatus")
-# def busystatusupdate():
-#     session_id=session['empid']
-#     work_status="Busy"
-#     cur = con.cursor()
-#     cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
-#     con.commit()
-#     return redirect(url_for('main'))
-# @app.route("/busystatus")
-# def busystatusupdate():
-#     session_id=session['empid']
-#     work_status="Busy"
-#     cur = con.cursor()
-#     cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
-#     con.commit()
-#     return redirect(url_for('main'))
+    global checkedin
 
-# @app.route("/awaystatus")
-# def awaystatusupdate():
-#     session_id=session['empid']
-#     work_status="Away"
-#     cur = con.cursor()
-#     cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
-#     con.commit()
-#     return redirect(url_for('main'))
+    cur.execute('SELECT checkin FROM empinfo WHERE empid=%s', (eid,))
+    checkintime = cur.fetchone()
+    checkintime = checkintime[0] if checkintime else None
 
+    cur.execute('SELECT checkout FROM empinfo WHERE empid=%s', (eid,))
+    checkouttime = cur.fetchone()
+    checkouttime = checkouttime[0] if checkouttime else None
 
-# @app.route("/dndstatus")
-# def dndstatusupdate():
-#     session_id=session['empid']
-#     work_status="DnD"
-#     cur = con.cursor()
-#     cur.execute("UPDATE empinfo SET workstatus = %s where empid=%s",(work_status,session_id,))
-#     con.commit()
-#     return redirect(url_for('main'))
+    cur.execute('SELECT checkindate FROM empinfo WHERE empid=%s', (eid,))
+    checkindate = cur.fetchone()
+    checkindate = checkindate[0] if checkindate else None
+
+    cur.execute('SELECT checkoutdate FROM empinfo WHERE empid=%s', (eid,))
+    checkoutdate = cur.fetchone()
+    checkoutdate = checkoutdate[0] if checkoutdate else None
+
+    try:
+        t = time.localtime()
+        current_checkin_time = time.strftime("%H:%M:%S", t)
+        current_checkin_date = date.today()
+
+        if checkintime is None or checkouttime is None:
+            raise ValueError("Check-in time or check-out time is missing.")
+        if checkindate is None or checkoutdate is None:
+            raise ValueError("Check-in date or check-out date is missing.")
+
+        if checkintime < checkouttime and checkindate == checkoutdate:
+            checkedin = False
+        elif checkintime < checkouttime and checkindate < checkoutdate:
+            checkedin = False
+        elif checkintime > checkouttime and checkindate < checkoutdate:
+            checkedin = False
+        else:
+            checkedin = True
+
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        checkedin = False  # Default to not checked in if error happens
+
+    cur.execute('SELECT * FROM quicklinks')
+    quicklinks = cur.fetchall()
+
+    cur.execute('SELECT shift FROM empinfo WHERE empid=%s', (eid,))
+    shift = cur.fetchone()
+    formatted_shift = shift[0] if shift else "Shift details not available"
+
+    return render_template(
+        '/service/Dashboard.html',
+        n=n,
+        shift=formatted_shift,
+        checkedin=checkedin,
+        name=ename,
+        id=session['empid'],
+        newhires=newhires,
+        holidays=holidays,
+        goals=goals,
+        quicklinks=quicklinks
+    )
 
 user_status = {"status": "Available", "color": "green"}
 
-@app.route("/update_status", methods=["POST"])
+@ClientApp.route("/update_status", methods=["POST"])
 def update_status():
     data = request.json
     user_status["status"] = data.get("status")
     user_status["color"] = data.get("color")
     return jsonify({"message": "Status updated successfully"}), 200
 
-@app.route("/get_status", methods=["GET"])
+@ClientApp.route("/get_status", methods=["GET"])
 def get_status():
     return jsonify(user_status), 200
 
 
 
-@app.route('/viewprofile')
+@ClientApp.route('/viewprofile')
 # @login_required
 def viewprofile():
     profileid=session['empid']
     #cursor=mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cur = con.cursor()
+    cur = get_cursor()
     cur.execute('SELECT * from empinfo where empid= %s',(profileid,))
     profile=cur.fetchall()
     return render_template('/service/Profile.html',profile=profile,profileid=profileid)
 
 
-@app.route('/updateprofile/<int:id>',methods=['POST','GET'])
+@ClientApp.route('/updateprofile/<int:id>',methods=['POST','GET'])
 def updateprofile(id):
     id=session['empid']
     if request.method == 'POST':
         
         empphno = request.form['phone-number']
         empseating = request.form['seating']
-        cur = con.cursor()
+        cur = get_cursor()
         cur.execute("UPDATE empinfo SET phno = %s, seating= %s WHERE empid = %s", 
                (empphno,empseating, session['empid'],))
         
@@ -230,27 +239,27 @@ def updateprofile(id):
         return redirect(url_for('viewprofile'))
     return render_template('/service/Updatefield.html',id=id)
 
-@app.route('/teamdirectory')
+@ClientApp.route('/teamdirectory')
 def teamdirectory():
     return render_template('/service/Directory.html')
 
-@app.route('/humanresource')
+@ClientApp.route('/humanresource')
 def humanresource():
     teamname='Human Resource'
     head='Guru Moorthi K'
-    cur = con.cursor()
+    cur = get_cursor()
     cur.execute('SELECT * from  hr')
     team_profile=cur.fetchall()
     return render_template('/service/Directory-profiles.html',head=head,team_profile=team_profile,team_name=teamname)
 
-@app.route('/employeeinfo/<int:eid>',methods=['POST','GET'])
+@ClientApp.route('/employeeinfo/<int:eid>',methods=['POST','GET'])
 def employeeinfo(eid):
     s_id=session['empid']
-    cur = con.cursor()
+    cur = get_cursor()
     cur.execute('SELECT * from  hr where id=%s',(eid,))
     team_p=cur.fetchall()
     con.commit()
-    cur = con.cursor()
+    cur = get_cursor()
     cur.execute('SELECT * from  empinfo where empid=%s',(eid,))
     emp_p=cur.fetchall()
     cur.execute('SELECT * from  skillset where empid=%s',(eid,))
@@ -260,24 +269,24 @@ def employeeinfo(eid):
     return render_template('/service/Employeeinfo.html',manager=manager,emp_p=emp_p,team_p=team_p,s_id=s_id,empSkills=empSkills)
 
 
-@app.route('/employeeskills/<int:seid>',methods=['POST','GET'])
+@ClientApp.route('/employeeskills/<int:seid>',methods=['POST','GET'])
 def employeeskills(seid):
     seid=session['empid']
     if request.method=='POST':
         skill = request.form['skills']
         skillrate=request.form['skillrate']
-        cur = con.cursor()   
+        cur = get_cursor()   
         cur.execute("insert into skillset(empid,skill,rating) values(%s,%s,%s)",(seid,skill,skillrate,))
         con.commit()
     return render_template('/service/Employeeskills.html',id=seid)
 
-@app.route('/skilldetails/<int:uid>',methods=['post','get'])
+@ClientApp.route('/skilldetails/<int:uid>',methods=['post','get'])
 def skilldetails(uid):
     seid=session['empid']
-    cur = con.cursor()   
+    cur = get_cursor()   
     cur.execute("select skill from skillset where uid=%s",(uid,))
     skillrecord=cur.fetchone()
-    cur = con.cursor() 
+    cur = get_cursor() 
     cur.execute("select uid from skillset where uid=%s",(uid,)) 
     del_id=cur.fetchone()
     cur.execute("select * from skillset where uid=%s",(uid,))
@@ -290,25 +299,25 @@ def skilldetails(uid):
     record_uid=cur.fetchone()
     return render_template('/service/SkillDetails.html',emp_ids=emp_ids,empid_matcher=empid_matcher,skillrecord=skillrecord,del_id=del_id,seid=seid,skill_data=skill_data,record_uid=record_uid)
 
-@app.route("/delete_data/<int:uid>", methods=["GET","POST"])
+@ClientApp.route("/delete_data/<int:uid>", methods=["GET","POST"])
 def delete_data(uid):
     seid=session['empid']
-    cur= con.cursor() 
+    cur= get_cursor() 
     cur.execute("delete from skillset where uid=%s and empid=%s",(uid,seid,))
     cur.connection.commit()
     cur.close() 
-    return redirect(url_for('employeeinfo',eid=seid))
+    return redirect(url_for('ClientApp.employeeinfo',eid=seid))
 
-@app.route("/personaldetail-update/<int:id>",methods=["GET","POST"])
+@ClientApp.route("/personaldetail-update/<int:id>",methods=["GET","POST"])
 def personaldetailsupdate(id):
     id=session["empid"]
     return render_template("/service/PersonalDetails.html")
 
 
-@app.route("/goals",methods=['GET','POST'])
+@ClientApp.route("/goals",methods=['GET','POST'])
 def goals():
     emp_id=session['empid']
-    cur=con.cursor()
+    cur=get_cursor()
     cur.execute('SELECT * FROM empinfo WHERE empid= %s ',(emp_id,))
     empdetail=cur.fetchall()
     if request.method == 'POST':
@@ -320,58 +329,58 @@ def goals():
         status = request.form['status']
         
         
-        cur1= con.cursor()
+        cur1= get_cursor()
         cur1.execute("INSERT INTO goalset(empid,taskname,description,startdate,duedate,priority,status) VALUES (%s,%s,%s,%s,%s,%s,%s)",(emp_id,taskname,taskdescription,startdate,duedate,priority,status,))
         
         con.commit()
         flash("Record Added Successfully !")
     return render_template("/service/Goals.html",empdetails=empdetail)
    
-@app.route("/goaldetails/<int:gid>",methods=['GET','POST'])
+@ClientApp.route("/goaldetails/<int:gid>",methods=['GET','POST'])
 def goalDetails(gid):
     emp_id=session['empid']
-    cur=con.cursor()
+    cur=get_cursor()
     cur.execute('SELECT * FROM goalset WHERE gid= %s ',(gid,))
     goals=cur.fetchall()
-    cur=con.cursor()
+    cur=get_cursor()
     cur.execute("select * from empinfo where empid=%s",(emp_id,))
     empdata_goal=cur.fetchall()
     # flash("Not found")
     return render_template('/service/Goaldetails.html',goals=goals,empdata_goal=empdata_goal,emp_id=emp_id,gid=gid)
 
-@app.route('/closetaskstatus/<int:gid>',methods=['POST','GET'])
+@ClientApp.route('/closetaskstatus/<int:gid>',methods=['POST','GET'])
 def closetaskstatus(gid):
     g_id=gid
     name="Closed"
-    cur = con.cursor()
+    cur = get_cursor()
     cur.execute("UPDATE goalset SET status = %s where gid=%s",(name,g_id,))
     con.commit()
     return redirect(url_for('main'))
     
-@app.route('/opentaskstatus/<int:gid>',methods=['POST','GET'])
+@ClientApp.route('/opentaskstatus/<int:gid>',methods=['POST','GET'])
 def opentaskstatus(gid):
     g_id=gid
     name="Open"
-    cur = con.cursor()
+    cur = get_cursor()
     cur.execute("UPDATE goalset SET status = %s where gid=%s",(name,g_id,))
     con.commit()
     return redirect(url_for('main'))
 
 
 
-@app.route("/taskdeletion/<int:gid>", methods=["GET","POST"])
+@ClientApp.route("/taskdeletion/<int:gid>", methods=["GET","POST"])
 def taskdeletion(gid):
     g_id=gid
-    cur= con.cursor() 
+    cur= get_cursor() 
     cur.execute("delete from goalset where gid=%s",(gid,))
     cur.connection.commit()
     cur.close() 
     return redirect(url_for('main'))
 
-@app.route("/leaveform",methods=['GET','POST'])
+@ClientApp.route("/leaveform",methods=['GET','POST'])
 def leaveform():
     emp_id=session['empid']
-    cur=con.cursor()
+    cur=get_cursor()
     cur.execute('SELECT * FROM empinfo WHERE empid= %s ',(emp_id,))
     empdetail=cur.fetchall()
     if request.method == 'POST':
@@ -379,7 +388,7 @@ def leaveform():
         fromdate = request.form['fromdate']
         todate = request.form['todate']
         leavedescription = request.form['description']
-        cur1= con.cursor()
+        cur1= get_cursor()
         cur1.execute("INSERT INTO leaverequest(empid,leavetype,fdate,tdate,description) VALUES (%s,%s,%s,%s,%s)",(emp_id,leavetype,fromdate,todate,leavedescription,))
         con.commit()
         flash("Record sent to Approval !")
@@ -390,7 +399,7 @@ def leaveform():
 
    
 
-@app.route("/checkin")
+@ClientApp.route("/checkin")
 def checkin():
     session_id=session['empid']
     In_status="Office In"
@@ -400,10 +409,10 @@ def checkin():
     current_time = time.strftime("%H:%M:%S", t)
     current_date=date.today()
     checkintime=current_time
-    cur = con.cursor()
+    cur = get_cursor()
     cur.execute("UPDATE empinfo SET inoutstatus = %s, checkin=%s where empid=%s",(In_status,checkintime,session_id,))
     con.commit()
-    cur = con.cursor()
+    cur = get_cursor()
     cur.execute("INSERT INTO attendancelog(empid,datestamp,checkinlog) VALUES (%s,%s,%s)",(session_id,current_date,checkintime,))
     con.commit()
     cur.execute("UPDATE empinfo SET checkindate = %s where empid=%s",(current_date,session_id,))
@@ -411,7 +420,7 @@ def checkin():
     return redirect(url_for('main'))
   
 
-@app.route("/checkout")
+@ClientApp.route("/checkout")
 def checkout():
     session_id=session['empid']
     In_status="Out"
@@ -421,17 +430,17 @@ def checkout():
     current_time = time.strftime("%H:%M:%S", t)
     current_date=date.today()
     checkouttime=current_time
-    cur=con.cursor()
+    cur=get_cursor()
     cur.execute("UPDATE empinfo SET inoutstatus = %s, checkout=%s where empid=%s",(In_status,checkouttime,session_id,))
     con.commit()
-    cur = con.cursor()
+    cur = get_cursor()
     cur.execute("INSERT INTO attendancelog(empid,datestamp,checkoutlog) VALUES (%s,%s,%s)",(session_id,current_date,checkouttime,))
     con.commit()
     cur.execute("UPDATE empinfo SET checkoutdate = %s where empid=%s",(current_date,session_id,))
     con.commit()
-    return redirect(url_for('main'))
+    return redirect(url_for('ClientApp.main'))
 
-@app.route('/attendancelog',methods=['GET','POST'])
+@ClientApp.route('/attendancelog',methods=['GET','POST'])
 def attendancelog():
     session_id=session['empid']
     global timerecords
@@ -439,22 +448,39 @@ def attendancelog():
     if request.method=='POST':
         
         Qdate=request.form['givendate']
-        cur = con.cursor() 
+        cur = get_cursor() 
         cur.execute('SELECT * FROM attendancelog WHERE empid= %s and datestamp=%s ',(session_id,Qdate,)) 
         # global timerecords
         timerecords=cur.fetchall()
         return render_template('/service/AttendanceLog.html',session_id=session_id,timerecords=timerecords,Qdate=Qdate)
     return render_template('/service/AttendanceLog.html',session_id=session_id)
-@app.route('/userlogout')
-
+@ClientApp.route('/userlogout')
 def userlogout():
     session.pop('empid')
     return redirect(url_for('index'))
 
 
+@ClientApp.route('/directory')
+def directory():
+    #try:
+        cur=get_cursor()
+        
+        # Fetch departments from your `directory` table
+        cur.execute("SELECT DISTINCT department_name FROM directory ORDER BY department_name ASC;")
+        result = cur.fetchall()
+        
+        # Extract department names into a simple list
+        teams = [row[0] for row in result]
+        
+        cur.close()
+        
+        return render_template('/service/Directory.html', teams=teams)
+    
+    # except Exception as e:
+    #        print(f"Error fetching directory data: {e}")
+    #        return "An error occurred while loading the directory."
 
-
-@app.route('/weatherreport', methods =['POST', 'GET'])
+@ClientApp.route('/weatherreport', methods =['POST', 'GET'])
 def weather():
      city = "Mumbai"
      api_key = "0f671a46ce00201b5cfa17ff2e13cbb9"
@@ -471,56 +497,6 @@ def weather():
 
 	
 
-#Admin Interface- Starts
-
-admincursor = con.cursor()
-@app.route('/AdminLanding')
-def AdminLanding():
-    return render_template('/Admin/AdminLanding.html')
-
-
-@app.route('/ManageEmpdata')
-def ManageEmpdata():
-    return render_template('/Admin/ManageEmpdata.html')
-
-@app.route('/add_employee', methods=['POST'])
-def add_employee():
-    empid = request.form.get('empid')
-    name = request.form.get('name')
-    phno = request.form.get('phno')
-    seating = request.form.get('seating')
-    destination = request.form.get('destination')
-    team = request.form.get('team')
-    manager = request.form.get('manager')
-    org = request.form.get('org')
-    doj = request.form.get('doj')
-    officelocation = request.form.get('officelocation')
-    shift = request.form.get('shift')
-    employmentstatus = request.form.get('employmentstatus')
-    profile_pic = request.files['profile_pic'].read()
-    emppass = request.form.get('emppass')
-
-    # if empid:
-    #     admincursor.execute("""
-    #         UPDATE empinfo SET name=%s, phno=%s, seating=%s, destination=%s, 
-    #         team=%s, manager=%s, org=%s, doj=%s, officelocation=%s, shift=%s, 
-    #         employmentstatus=%s, profile_pic=%s WHERE empid=%s
-    #     """, (name, phno, seating, destination, team, manager, org, doj, officelocation, shift, employmentstatus, profile_pic, empid))
-    # else:
-    admincursor.execute("""
-    INSERT INTO empinfo (empid,name, phno, seating, destination, team, manager, 
-    org, doj, officelocation, shift, employmentstatus, profile_pic,emppass) 
-            VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s)
-        """, (empid,name, phno, seating, destination, team, manager, org, doj, officelocation, shift, employmentstatus, profile_pic,emppass))
-
-    con.commit()
-    return redirect(url_for('index'))
-
-@app.route('/delete_employee/<int:empid>')
-def delete_employee(empid):
-    admincursor.execute("DELETE FROM empinfo WHERE empid=%s", (empid,))
-    con.commit()
-    return redirect(url_for('index'))
 
     
 

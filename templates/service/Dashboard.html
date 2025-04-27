@@ -20,10 +20,10 @@
     <p id="app-name"><b>PeopleSyncPlus</b></p>
     <p id="services">Services</p>
     <p id="self-service"><a href="/employeeinfo/{{id}}">Self-service</a></p>
-    <p id="org"><a href="/teamdirectory">Organization</a></p>
+    <p id="org"><a href="/directory">Organization</a></p>
     <p id="approvals"><a href="#">Approvals</a></p>
    
-    <p id="logout"><a href="{{url_for('userlogout')}}"><iconify-icon icon="line-md:arrow-close-left"
+    <p id="logout"><a href="{{url_for('ClientApp.userlogout')}}"><iconify-icon icon="line-md:arrow-close-left"
           id="signout-icon"></iconify-icon> &nbsp;&nbsp;Sign Out</a></p>
   </div>
 
@@ -240,7 +240,7 @@
 
 <br>
   <div class="weather-bar">
-    <p id="weather-icon"><iconify-icon id="icon-weather"icon="arcticons:weather"></iconify-icon>&nbsp;&nbsp;<a href="{{url_for('weather')}}">weather</a>
+    <p id="weather-icon"><iconify-icon id="icon-weather"icon="arcticons:weather"></iconify-icon>&nbsp;&nbsp;<a href="{{url_for('ClientApp.weather')}}">weather</a>
     </p>
   </div>
   <script>
